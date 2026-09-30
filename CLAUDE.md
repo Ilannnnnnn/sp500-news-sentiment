@@ -22,7 +22,8 @@ recorded in [`IMPLEMENTATION_PLAN.md`](IMPLEMENTATION_PLAN.md).
    what changed and how it was verified (commands run, test output). No large refactors,
    no speculative features.
 5. **Keep it simple.** Python, command line only, minimal dependencies, light repository.
-   No framework, no over-engineering.
+   No framework, no over-engineering. The whole project is sized for 4–6 hours: keep each
+   piece compact, and if something turns out costly to implement, skip it and say so.
 6. **Never invent.** If something is unclear in the spec or the data, say so and ask.
    Never assume silently.
 7. **Log decisions.** Every validated decision gets a short entry (context, options,
@@ -92,6 +93,8 @@ distinguish companies that are the **subject** of the news from companies merely
   `uv export --format requirements-txt --no-hashes --output-file requirements.txt`
 - **Python:** 3.11 or newer.
 - **Tests:** pytest (`uv run pytest`). Tests never call the network; LLM responses are faked.
+- **Generated files** (`reports/data_audit.md`, final outputs) are produced by their
+  command, never edited by hand; regenerate them when the code or the data changes.
 - **Git:**
   - **One pull request per step.** Each step is delivered as one pull request into `main`.
     The user reviews and merges it before the next step starts; the next step starts from
