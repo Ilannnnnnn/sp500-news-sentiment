@@ -6,7 +6,7 @@ Each step is validated by the user before the next one starts.
 
 | Step | Content | Status |
 |------|---------|--------|
-| 0 | Setup: repository layout, dependency management, test framework | In review |
+| 0 | Setup: repository layout, dependency management, test framework | Done |
 | 1 | Data audit (read-only): report every anomaly in `news.json` and `sp500.csv` | To do |
 | 2 | Data cleaning: handling decided per anomaly class; cleaning module + change log | To do |
 | 3.1 | Loading + cleaning → aggregation → CSV writing, with a stub extractor | To do |
@@ -28,7 +28,7 @@ Each step is validated by the user before the next one starts.
 - **Options:** (A) `requirements.txt` + pip; (B) `pyproject.toml` + pip; (C) `pyproject.toml` + `uv.lock` (uv); (D) Poetry.
 - **Choice:** C, Python ≥ 3.11, with a pip fallback documented in the README.
 - **Reason:** exact, locked environment with one command; plain pip still works.
-- **Sub-decision — pip fallback mechanism.** Options: (A) commit a `requirements.txt` generated from `uv.lock` by `uv export`; (B) add a build backend and dev extras, install with `pip install -e ".[dev]"`; (C) list packages manually in the README. **Choice:** A. **Reason:** pip users get exactly the versions pinned in the lock, with no build backend. Cost: `requirements.txt` must be regenerated after every dependency change (command in `CLAUDE.md`).
+- **Sub-decision — pip fallback mechanism.** Options: (A) commit a `requirements.txt` generated from `uv.lock` by `uv export`; (B) add a build backend and dev extras, install with `pip install -e ".[dev]"`; (C) list packages manually in the README. **Choice:** A, exported without package hashes (shorter file; versions still pinned). **Reason:** pip users get exactly the versions pinned in the lock, with no build backend. Cost: `requirements.txt` must be regenerated after every dependency change (command in `CLAUDE.md`).
 - **Note:** the project itself is not installed (no build backend). Runtime dependencies are added only at the step that needs them.
 
 ### D0.3 — Test framework (Step 0)
@@ -38,13 +38,19 @@ Each step is validated by the user before the next one starts.
 
 ### D0.4 — What goes into git (Step 0)
 - **Options:** (A) commit the raw inputs, ignore `output/` during development, commit the final outputs at the end; (B) don't commit the inputs; (C) commit inputs and outputs at every step.
-- **Choice:** A. The repository is public, which the evaluators explicitly allow. The project brief PDF is never committed (`*.pdf` in `.gitignore`), nor is `.env` or any secret.
+- **Choice:** A. The repository is public, which the evaluators explicitly allow. The project brief PDF is never committed, nor is `.env` or any secret.
 - **Reason:** the repository is self-contained and reproducible, and the final deliverables are visible.
+- **Revision at Step 0 review:** `.gitignore` lists the exact brief name `AIE2609_Project.pdf` instead of `*.pdf`, so that the final presentation PDF can be committed.
 
 ### D0.5 — Which docs to create in Step 0
 - **Options:** (A) only the docs used now (`CLAUDE.md`, `IMPLEMENTATION_PLAN.md`, `README.md`), the others when they have content; (B) all five as placeholders now.
 - **Choice:** A. `ARCHITECTURE.md` and `DATA_MODEL.md` are written in Step 3.
 - **Reason:** no placeholders that go stale.
+
+### W1 — Delivery workflow: one pull request per step (Step 0 review)
+- **Context:** the user reviews every step before the next one starts.
+- **Choice (user instruction):** each step is delivered as one pull request into `main`; the user reviews and merges it before the next step starts, and the next step starts from the updated `main`. Rule recorded in `CLAUDE.md`.
+- **Reason:** one reviewable unit per step, and a history on `main` that matches the roadmap.
 
 ## Spec clarifications from the user
 

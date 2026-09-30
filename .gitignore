@@ -11,5 +11,5 @@ __pycache__/
 # The final outputs produced by the pipeline are committed explicitly at the end (decision D0.4).
 output/
 
-# The project brief PDF must never be committed (decision D0.4)
-*.pdf
+# The project brief PDF must never be committed; other PDFs (e.g. the final presentation) may be (decision D0.4)
+AIE2609_Project.pdf
