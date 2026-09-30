@@ -1,0 +1,16 @@
+[project]
+name = "sp500-news-sentiment"
+version = "0.1.0"
+description = "Entity-level news sentiment for S&P 500 companies (JSON in, CSV out)."
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = []
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+
+[dependency-groups]
+dev = [
+    "pytest>=9.1.1",
+]
