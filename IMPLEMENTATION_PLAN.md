@@ -49,8 +49,16 @@ Each step is validated by the user before the next one starts.
 
 ### W1 — Delivery workflow: one pull request per step (Step 0 review)
 - **Context:** the user reviews every step before the next one starts.
-- **Choice (user instruction):** each step is delivered as one pull request into `main`; the user reviews and merges it before the next step starts, and the next step starts from the updated `main`. Rule recorded in `CLAUDE.md`.
+- **Choice (user instruction):** each step is delivered as one pull request into `main`; the user reviews and merges it before the next step starts, and the next step starts from the updated `main`. Rule recorded in `CLAUDE.md` (section 4, Git).
 - **Reason:** one reviewable unit per step, and a history on `main` that matches the roadmap.
+
+### W2 — Additional working rules (Step 0 review)
+- **Context:** review of `CLAUDE.md`.
+- **Choice (user instruction):** three rules added to `CLAUDE.md` section 1:
+  - **No dataset-specific logic:** no behaviour hard-coded for a specific article id, headline or phrase, and no alias or rule added just to fix one article; every rule must be general and justified independently of this dataset.
+  - **Tests are not negotiable:** never modify or delete a test to make it pass; fix the code, or stop and explain why the test is wrong.
+  - **Verify before claiming done:** run the full test suite and show the output before reporting a step or increment as finished.
+- **Reason:** the pipeline must generalise to unseen equivalent inputs, and every claim must be backed by an actual run.
 
 ## Spec clarifications from the user
 
