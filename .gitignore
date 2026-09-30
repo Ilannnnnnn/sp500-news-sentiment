@@ -1,0 +1,15 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+
+# Secrets (the OpenAI key is read from the OPENAI_API_KEY environment variable only)
+.env
+
+# Generated outputs during development.
+# The final outputs produced by the pipeline are committed explicitly at the end (decision D0.4).
+output/
+
+# The project brief PDF must never be committed (decision D0.4)
+*.pdf
